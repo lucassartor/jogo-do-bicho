@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo do Bicho</title>
+</head>
+<body>
+    <div>
+        <h1>Client</h1>
+        <b>Status: </b><span id="status" class="badge badge-warning">Desconectado</span>
+        <br>
+        <button onclick="sendMessage()">Enviar mensagem</button>
+    </div>
+</body>
+<script>
+    // Cria conexão WebSocket.
+    const socket = new WebSocket('ws://localhost:3000');
+
+    // Abre conexão
+    socket.addEventListener('open', function (event) {
+        console.log('Conectado no servidor WebSocket')
+    });
+
+    // Escutando mensagens
+    socket.addEventListener('message', function (event) {
+        console.log('Mensagem do servidor ', event.data);
+    });
+
+    // Muda o status pra conectado
+    socket.onopen = () => {
+        document.getElementById('status').removeAttribute('badge-warning')
+        document.getElementById('status').setAttribute('class', 'badge-success')
+        document.getElementById('status').textContent = 'Conectado'
+    }
+
+    // Muda o status pra desconectado
+    socket.onclose = () => {
+        document.getElementById('status').removeAttribute('badge-success')
+        document.getElementById('status').setAttribute('class', 'badge-warning')
+        document.getElementById('status').textContent = 'Desconectado'
+    }
+
+    // Função de enviar msg
+    const sendMessage = () => {
+        socket.send('Olá do servidor!');
+    }
+</script>
+</html>
