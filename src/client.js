@@ -2,73 +2,41 @@ let userId
 
 // Animais e suas imagens
 const animals = [
-    {name: 'Avestruz', image: 'https://cdn-icons-png.flaticon.com/512/427/427522.png'},
-    {name: 'Águia', image: 'https://cdn-icons.flaticon.com/png/512/2417/premium/2417563.png?token=exp=1636334677~hmac=5f9ad6ed7efe3d4cb68ecbdb255d3653'},
-    {name: 'Burro', image: 'https://cdn-icons.flaticon.com/png/512/1018/premium/1018430.png?token=exp=1636334887~hmac=46e3264980ca1ac73c504e0550f55be7'},
-    {name: 'Borboleta', image: 'https://cdn-icons.flaticon.com/png/512/1776/premium/1776959.png?token=exp=1636334927~hmac=aa193e8be0707455d4e533e1875cb546'},
-    {name: 'Cachorro', image: 'https://cdn-icons.flaticon.com/png/512/4540/premium/4540795.png?token=exp=1636334943~hmac=a9d51cbb85c1c80e349d6157d72e7ad3'},
-    {name: 'Cabra', image: 'https://cdn-icons.flaticon.com/png/512/1063/premium/1063454.png?token=exp=1636334964~hmac=2e769d37304bbee9021740077b799d6e'},
-    {name: 'Carneiro', image: 'https://cdn-icons-png.flaticon.com/512/1466/1466578.png'},
-    {name: 'Camelo', image: 'https://cdn-icons.flaticon.com/png/512/2918/premium/2918098.png?token=exp=1636335006~hmac=f7c8e2aa153f0008d1cc1524fe2d6d16'},
-    {name: 'Cobra', image: 'https://cdn-icons-png.flaticon.com/512/616/616487.png'},
-    {name: 'Coelho', image: 'https://cdn-icons.flaticon.com/png/512/2716/premium/2716961.png?token=exp=1636335019~hmac=3ad72afaee084a7c778c8e5d6b3d426f'},
-    {name: 'Cavalo', image: 'https://cdn-icons.flaticon.com/png/512/5371/premium/5371387.png?token=exp=1636335062~hmac=f161d829364649387f7215a7a76a7ca7'},
-    {name: 'Elefante', image: 'https://cdn-icons.flaticon.com/png/512/1063/premium/1063451.png?token=exp=1636335084~hmac=84d9e9668ce4ea9bbb984076015facb5'},
-    {name: 'Galo', image: 'https://cdn-icons-png.flaticon.com/512/291/291986.png'},
-    {name: 'Gato', image: 'https://cdn-icons.flaticon.com/png/512/1650/premium/1650555.png?token=exp=1636335163~hmac=80b86ff0a653f0a3f17aafdae66291ab'},
-    {name: 'Jacaré', image: 'https://cdn-icons-png.flaticon.com/512/2219/2219706.png'},
-    {name: 'Leão', image: 'https://cdn-icons.flaticon.com/png/512/2559/premium/2559432.png?token=exp=1636335184~hmac=795dc27da27822608df9f13526d898c9'},
-    {name: 'Macaco', image: 'https://cdn-icons.flaticon.com/png/512/3195/premium/3195978.png?token=exp=1636335211~hmac=167d6a297407f3d483504d7d011909b7'},
-    {name: 'Porco', image: 'https://cdn-icons.flaticon.com/png/512/2120/premium/2120219.png?token=exp=1636335268~hmac=8fd69641ccbe4082d16904d80471a2b8'},
-    {name: 'Pavão', image: 'https://cdn-icons.flaticon.com/png/512/2465/premium/2465381.png?token=exp=1636335288~hmac=c9bf4fa511caefc95f3b20a82b12e84e'},
-    {name: 'Peru', image: 'https://cdn-icons.flaticon.com/png/512/2403/premium/2403468.png?token=exp=1636335378~hmac=8467f38f241c22375053224ad10b3e40'},
-    {name: 'Touro', image: 'https://cdn-icons.flaticon.com/png/512/3786/premium/3786945.png?token=exp=1636335393~hmac=863b93f1e318a4bbc790d38b1d8ab530'},
-    {name: 'Tigre', image: 'https://cdn-icons-png.flaticon.com/512/616/616523.png'},
-    {name: 'Urso', image: 'https://cdn-icons.flaticon.com/png/512/2097/premium/2097915.png?token=exp=1636335477~hmac=48665230ed6cf594f689eeaf620de7ae'},
-    {name: 'Veado', image: 'https://cdn-icons-png.flaticon.com/512/427/427536.png'},
-    {name: 'Vaca', image: 'https://cdn-icons.flaticon.com/png/512/3319/premium/3319367.png?token=exp=1636335503~hmac=45f580cfdff28c5fc1e6ffa889dfdbcf'},
+    {name: 'Cavalo', image: 'https://cdn-icons-png.flaticon.com/512/427/427522.png'},
+    {name: 'Coelho', image: 'https://cdn-icons-png.flaticon.com/512/427/427522.png'},
+    {name: 'Elefante', image: 'https://cdn-icons-png.flaticon.com/512/427/427522.png'},
+    {name: 'Hamster', image: 'https://cdn-icons-png.flaticon.com/512/427/427522.png'},
+    {name: 'Leão', image: 'https://cdn-icons-png.flaticon.com/512/427/427522.png'},
+    {name: 'Puma', image: 'https://cdn-icons-png.flaticon.com/512/427/427522.png'},
+    {name: 'Raposa', image: 'https://cdn-icons-png.flaticon.com/512/1466/1466578.png'},
+    {name: 'Urso', image: 'https://cdn-icons-png.flaticon.com/512/427/427522.png'},
+    {name: 'Unicornio', image: 'https://cdn-icons-png.flaticon.com/512/616/616487.png'},
 ]
 
 // Regras de negócio de cada sorteio
 const raffles = {
-    classico: {
-        name: 'Clássico',
+    zooCasino: {
+        name: 'Zoo Casino',
         description: 'A loteria que paga milhões.',
         bets: 1,
-        numbers: 25,
-        cost: 10,
-        prize: 'R$ 100.000.000,00',
-    },
-    doBar: {
-        name: 'Do Bar',
-        description: 'Mais chances de ganhar.',
-        bets: 5,
-        numbers: 25,
-        cost: 2.5,
-        prize: 'R$ 100.000,00',
-    },
-    rapidoEFurioso: {
-        name: 'Rápido & Furioso',
-        description: 'Fácil de ganhar e apostar.',
-        bets: 15,
-        numbers: 25,
-        cost: 5,
-        prize: 'R$ 150,00',
+        numbers: 9,
+        cost: 100,
+        prize: 'R$ 10.000,00',
     },
 }
 
 // Apostas feitas pelo usuário
 const bets = {
-    classico: [],
-    doBar: [],
-    rapidoEFurioso: [],
+    zooCasino: [],
 }
+
+let playerCount = 0
 
 // Carrinho
 const cart = {
     total: 0,
     bets: [],
-    balance: 100,
+    balance: 1000,
 }
 
 // Funções auxiliares
@@ -111,12 +79,18 @@ ws.onmessage = (event) => {
     const data = JSON.parse(event.data)
 
     switch (data.type) {
+        case 'new-user':
+            console.log(data)
+            $('#players').text(`${data.playersCount} players online`)
+            showToast('Novo jogador!', `Jogador ${data.newUser} acabou de entrar!`)
+            break
+
         case 'user-id':
             userId = data.userId
             break
 
         case 'bet-made':
-            showToast('Nova aposta', `Alguém apostou na ${data.raffle}!`)
+            showToast('Nova aposta', `Jogador ${data.userId} acabou de apostar em ${data.raffle}!`)
             break
 
         case 'bet-error':
@@ -171,9 +145,7 @@ const placeBets = async () => {
 // Função que limpa as apostas feitas anteriormente
 const clearBets = () => {
     cart.bets = []
-    bets.classico = []
-    bets.doBar = []
-    bets.rapidoEFurioso = []
+    bets.zooCasino = []
 
     updateCart()
     cart.total = 0
@@ -191,7 +163,7 @@ const clearBets = () => {
 const updateCart = () => {
 
     for (const lottery in bets) {
-        if (bets[lottery].length === raffles[lottery].bets) {
+            if (bets[lottery].length === raffles[lottery].bets) {
             if (!cart.bets.find(bet => bet === lottery)) {
                 cart.bets.push(lottery)
                 cart.total = cart.total + raffles[lottery].cost

@@ -39,6 +39,7 @@ const getContentOfMessage = (message) => {
 
 // Envio de evento via websocket para o client
 const sendMessageToClient = (userId, type, content) => {
+  console.log(content)
   const client = connections.get(userId)
     if (client) {
       client.send(JSON.stringify({
@@ -52,7 +53,15 @@ const sendBetAnnouncementToAllClients = (raffle, ignoredUser) => {
   connections.forEach((client, userId) => {
     if (userId === ignoredUser) return
 
-    sendMessageToClient(userId, 'bet-made', { raffle })
+    sendMessageToClient(userId, 'bet-made', { raffle, userId: ignoredUser })
+  })
+}
+
+const sendNewPlayerAnnouncementToAllClients = (newUser) => {
+  const playersCount = connections.size
+
+  connections.forEach((client, userId) => {
+    sendMessageToClient(userId, 'new-user', { newUser, playersCount })
   })
 }
 
@@ -154,7 +163,8 @@ webSocketServer.on('request', (req) => {
   const connection = req.accept(null, req.origin)
   const connectionId = uuid()
   connections.set(connectionId, connection)
-  sendMessageToClient(connectionId, 'user-id', { userId: connectionId })
+  sendMessageToClient(connectionId, 'user-id', { userId: connectionId, playerCount: connections.size })
+  sendNewPlayerAnnouncementToAllClients(connectionId)
 
   console.log(`${now()} - ${connection.remoteAddress} connected`)
 

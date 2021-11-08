@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Jogo Virtual do Bicho</title>
+    <title>Zoo Casino</title>
 
     <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/291/291986.png">
     <style>
-        input[type=checkbox][id^="classico"].css-checkbox {
+        input[type=checkbox][id^="zooCasino"].css-checkbox {
             display: none;
         }
 
@@ -35,6 +35,7 @@
     <br>
     <h1>Jogo Virtual do Bicho</h1>
     <span id="status" class="badge badge-warning align-middle">Desconectado</span>
+    <span id="players">1 player</span>
     <hr>
     <div class="row">
         <div id="lotteries" class="col-md-9">
@@ -44,7 +45,7 @@
             <div class="card text-white bg-dark position-fixed" style="width: 250px;">
                 <div class="card-header">Resumo da compra</div>
                 <div class="card-body">
-                    <h5 class="card-title">Balanço</h5>
+                    <h5 class="card-title">Carteira</h5>
                     <p id="balance"></p>
                     <h5 class="card-title">Apostas</h5>
                     <div id="cart"></div>
