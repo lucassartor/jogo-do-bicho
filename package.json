@@ -2,11 +2,10 @@
   "name": "jogo-do-bicho",
   "version": "1.0.0",
   "description": "EP 1 Redes",
-  "main": "src/index.js",
+  "main": "src/app.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/app.js",
+    "dev": "nodemon -e js,html src/app.js"
   },
   "repository": {
     "type": "git",
@@ -18,8 +17,12 @@
     "url": "https://github.com/lucassartor/jogo-do-bicho/issues"
   },
   "homepage": "https://github.com/lucassartor/jogo-do-bicho#readme",
+  "devDependencies": {
+    "nodemon": "2.0.6"
+  },
   "dependencies": {
-    "express": "^4.17.1",
-    "ws": "^8.2.3"
+    "cron": "1.8.2",
+    "uuid": "8.3.1",
+    "websocket": "1.0.32"
   }
 }
