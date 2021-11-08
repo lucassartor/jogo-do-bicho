@@ -80,9 +80,13 @@ ws.onmessage = (event) => {
 
     switch (data.type) {
         case 'new-user':
-            console.log(data)
             $('#players').text(`${data.playersCount} players online`)
             showToast('Novo jogador!', `Jogador ${data.newUser} acabou de entrar!`)
+            break
+
+        case 'user-disconnected':
+            $('#players').text(`${data.playersCount} players online`)
+            showToast('Jogador saiu', `Jogador ${data.newUser} acabou de sair!`)
             break
 
         case 'user-id':

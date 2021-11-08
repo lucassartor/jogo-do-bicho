@@ -65,6 +65,14 @@ const sendNewPlayerAnnouncementToAllClients = (newUser) => {
   })
 }
 
+const sendPlayerDisconnectedAnnouncementToAllClients  = (newUser) => {
+  const playersCount = connections.size - 1
+
+  connections.forEach((client, userId) => {
+    sendMessageToClient(userId, 'user-disconnected', { newUser, playersCount })
+  })
+}
+
 const isBetInvalid = (bet) => {
   if (!bet.userId) {
     return true
@@ -175,6 +183,7 @@ webSocketServer.on('request', (req) => {
 
   // Recebendo evento de close do client
   connection.on('close', () => {
+    sendPlayerDisconnectedAnnouncementToAllClients(connectionId)
     console.log(`${now()} - ${connection.remoteAddress} disconnected`)
   })
 })
