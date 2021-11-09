@@ -220,7 +220,7 @@ const generateCheckboxes = (lottery, numbers) => {
         const id = `${lottery}-number-${i}`
 
         html = html + `
-      <div class="col-md-3 form-check-inline justify-content-start align-start">
+      <div class="col-md-3 form-check-inline">
           <div class="animal-checkbox">
             <input id="${id}" class="css-checkbox" type="checkbox" value="${i}" onclick="checkNumber('${lottery}', '${id}')">
             <label for="${id}" class="css-label">
@@ -243,17 +243,17 @@ const generateCheckboxes = (lottery, numbers) => {
 const generateLottery = (lottery) => {
     $('#lotteries').append(`
     <div class="card">
-    <h5 class="instruction">Escolha um animal<h5/>
-        <div class="row">            
-            <div class="col-md-3 text-start">
+    <h5 class="instruction text-start">Escolha um animal:<h5/>
+        <div class="row text-start">            
+            <div class="col-md-4">
               <h5 class="card-title">${raffles[lottery].bets}</h5>
               <h6 class="card-subtitle">Apostas</h6>
             </div>
-            <div class="col-md-3 text-start">
+            <div class="col-md-4">
               <h5 class="card-title">${formatCurrency(raffles[lottery].cost)}</h5>
               <h6 class="card-subtitle">Custo</h6>
             </div>
-            <div class="col-md-3 text-start">
+            <div class="col-md-4">
               <h5 class="card-title">${raffles[lottery].prize}</h5>
               <h6 class="card-subtitle">Prêmio máximo</h6>
             </div>
