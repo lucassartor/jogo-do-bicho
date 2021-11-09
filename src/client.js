@@ -2,15 +2,15 @@ let userId
 
 // Animais e suas imagens
 const animals = [
-    {name: 'Cavalo', image: 'https://cdn-icons-png.flaticon.com/512/427/427522.png'},
-    {name: 'Coelho', image: 'https://cdn-icons-png.flaticon.com/512/427/427522.png'},
-    {name: 'Elefante', image: 'https://cdn-icons-png.flaticon.com/512/427/427522.png'},
-    {name: 'Hamster', image: 'https://cdn-icons-png.flaticon.com/512/427/427522.png'},
-    {name: 'Leão', image: 'https://cdn-icons-png.flaticon.com/512/427/427522.png'},
-    {name: 'Puma', image: 'https://cdn-icons-png.flaticon.com/512/427/427522.png'},
-    {name: 'Raposa', image: 'https://cdn-icons-png.flaticon.com/512/1466/1466578.png'},
-    {name: 'Urso', image: 'https://cdn-icons-png.flaticon.com/512/427/427522.png'},
-    {name: 'Unicornio', image: 'https://cdn-icons-png.flaticon.com/512/616/616487.png'},
+    {name: 'Leão', image: 'https://i.ibb.co/7gvx8Bh/Frame-9.png'},
+    {name: 'Puma', image: 'https://i.ibb.co/h9BCL42/Frame-10.png'},
+    {name: 'Raposa', image: 'https://i.ibb.co/9HwJ90d/Frame-11.png'},
+    {name: 'Urso', image: 'https://i.ibb.co/1XcpFr4/Frame-12.png'},
+    {name: 'Elefante', image: 'https://i.ibb.co/sPCwc7T/Frame-13.png'},
+    {name: 'Cavalo', image: 'https://i.ibb.co/V3jRYmc/Frame-14.png'},
+    {name: 'Hamster', image: 'https://i.ibb.co/8jQSCCg/Frame-15.png'},
+    {name: 'Coelho', image: 'https://i.ibb.co/7J0BFt4/Frame-16.png'},
+    {name: 'Unicórnio', image: 'https://i.ibb.co/6DmKwv7/Frame-17.png'},
 ]
 
 // Regras de negócio de cada sorteio
@@ -51,7 +51,7 @@ const showToast = (title, body, delay = 5000) => { // Exibe notificação na tel
     <div id="${toastId}" class="toast" data-delay="${delay}">
       <div class="toast-header">
         <strong id="toast-header" class="mr-auto me-auto">${title}</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        <button type="button" class="btn-close white" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div id="toast-body" class="toast-body">${body}</div>
     </div>
@@ -64,14 +64,10 @@ const showToast = (title, body, delay = 5000) => { // Exibe notificação na tel
 const ws = new WebSocket(`ws://${location.host}`)
 
 ws.onopen = () => {
-    $('#status').removeClass('badge bg-warning text-dark')
-    $('#status').addClass('badge bg-success')
     $('#status').text('Conectado')
 }
 
 ws.onclose = () => {
-    $('#status').removeClass('badge bg-success')
-    $('#status').addClass('badge bg-warning text-dark')
     $('#status').text('Desconectado')
 }
 
@@ -80,12 +76,12 @@ ws.onmessage = (event) => {
 
     switch (data.type) {
         case 'new-user':
-            $('#players').text(`${data.playersCount} players online`)
+            $('#players').text(`${data.playersCount}`)
             showToast('Novo jogador!', `Jogador ${data.newUser} acabou de entrar!`)
             break
 
         case 'user-disconnected':
-            $('#players').text(`${data.playersCount} players online`)
+            $('#players').text(`${data.playersCount}`)
             showToast('Jogador saiu', `Jogador ${data.newUser} acabou de sair!`)
             break
 
@@ -138,7 +134,7 @@ const placeBets = async () => {
 
                 let animalBets = []
                 bets[lottery].forEach(bet => animalBets.push(' ' + animals[bet - 1].name))
-                showToast('Sucesso', `Você apostou na ${lottery}<br>Suas apostas: <b>${animalBets}</b><br>Boa sorte :)`)
+                showToast('Sucesso', `Você fez sua aposta!<br>Sua aposta: <b>${animalBets}</b><br>Boa sorte :)`)
             }
         }
 
@@ -172,7 +168,7 @@ const updateCart = () => {
                 cart.bets.push(lottery)
                 cart.total = cart.total + raffles[lottery].cost
 
-                $('#cart').append(`<small id="${lottery}-cart"><p class="card-text">1x ${raffles[lottery].name} | ${formatCurrency(raffles[lottery].cost)}</p></small>`)
+                $('#cart').append(`<small id="${lottery}-cart"><p class="card-text">1x | ${formatCurrency(raffles[lottery].cost)}</p></small>`)
             }
         } else {
             cart.bets = cart.bets.filter(bet => bet !== lottery)
@@ -224,10 +220,17 @@ const generateCheckboxes = (lottery, numbers) => {
         const id = `${lottery}-number-${i}`
 
         html = html + `
-      <div class="col-md-2 form-check-inline justify-content-center align-center">
+      <div class="col-md-3 form-check-inline justify-content-start align-start">
           <div class="animal-checkbox">
             <input id="${id}" class="css-checkbox" type="checkbox" value="${i}" onclick="checkNumber('${lottery}', '${id}')">
-            <label for="${id}" class="css-label" style="background-image: url(${animals[i - 1].image});"></label>
+            <label for="${id}" class="css-label">
+                <div class="animal-wrapper">
+                    <div class="img-animal"> 
+                        <img src="${animals[i - 1].image}" />
+                    </div>
+                    <p>${animals[i - 1].name}</p>
+                </div>
+            </label>
           </div>
       </div>
     `
@@ -240,34 +243,29 @@ const generateCheckboxes = (lottery, numbers) => {
 const generateLottery = (lottery) => {
     $('#lotteries').append(`
     <div class="card">
-      <div class="card-header">
-        <div class="row">
-            <div class="col-md-3">
-              <h5 class="card-title">${raffles[lottery].name}</h5>
-              <h6 class="card-subtitle text-muted">${raffles[lottery].description}</h6>
-            </div>
-            <div class="col-md-3 text-center">
+    <h5 class="instruction">Escolha um animal<h5/>
+        <div class="row">            
+            <div class="col-md-3 text-start">
               <h5 class="card-title">${raffles[lottery].bets}</h5>
-              <h6 class="card-subtitle text-muted"><small>APOSTAS</small></h6>
+              <h6 class="card-subtitle">Apostas</h6>
             </div>
-            <div class="col-md-3 text-center">
+            <div class="col-md-3 text-start">
               <h5 class="card-title">${formatCurrency(raffles[lottery].cost)}</h5>
-              <h6 class="card-subtitle text-muted"><small>CUSTO</small></h6>
+              <h6 class="card-subtitle">Custo</h6>
             </div>
-            <div class="col-md-3 text-end">
+            <div class="col-md-3 text-start">
               <h5 class="card-title">${raffles[lottery].prize}</h5>
-              <h6 class="card-subtitle text-muted"><small>PRÊMIO MÁXIMO</small></h6>
+              <h6 class="card-subtitle">Prêmio máximo</h6>
             </div>
         </div>
-      </div>
       <div class="card-body">
         <div id="${lottery}-numbers"></div>
       </div>
-      <div class="card-footer">
+      <div class="footer">
         <div class="progress">
-          <div id="${lottery}-progress" class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+          <div id="${lottery}-progress" class="progress-bar progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
         </div>
-        <small><div id="${lottery}-timer" class="text-center"></div></small>
+        <small><div id="${lottery}-timer" class="text-start"></div></small>
       </div>
     </div>
     <br>
