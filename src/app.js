@@ -66,7 +66,7 @@ const sendNewPlayerAnnouncementToAllClients = (newUser) => {
 }
 
 const sendPlayerDisconnectedAnnouncementToAllClients  = (newUser) => {
-  const playersCount = connections.size - 1
+  const playersCount = connections.size
 
   connections.forEach((client, userId) => {
     sendMessageToClient(userId, 'user-disconnected', { newUser, playersCount })
@@ -162,7 +162,7 @@ server.listen(3000, () => {
 })
 
 // Servidor WebSocket
-webSocketServer = new webSocket({
+webSocketServer = new webSocket({ 
   httpServer: server,
 })
 
@@ -183,6 +183,7 @@ webSocketServer.on('request', (req) => {
 
   // Recebendo evento de close do client
   connection.on('close', () => {
+    connections.delete(connectionId)
     sendPlayerDisconnectedAnnouncementToAllClients(connectionId)
     console.log(`${now()} - ${connection.remoteAddress} disconnected`)
   })
